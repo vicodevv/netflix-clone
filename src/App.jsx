@@ -1,8 +1,8 @@
-import Home from "./home/Home";
-import "./app.scss";
+import "./app.scss"; 
+import Login from "./pages/login/Login";
 
 const App = () => {
-  return <Home/>
+  return <Login/>
 };
 
 export default App;
