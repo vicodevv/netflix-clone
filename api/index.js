@@ -9,6 +9,6 @@ mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopolo
 .then(()=>console.log("DB connection Succesful"))
 .catch((err)=>console.log(err));
 
-app.listen(8000, ()=>{
+app.listen(8080, ()=>{
     console.log("Backend server is running");
 })
