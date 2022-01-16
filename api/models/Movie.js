@@ -15,4 +15,4 @@ const MovieSchema = new mongoose.Schema({
 },
 {timestamps:true}
 );
-ccodel("Movie", MovieSchema);
+module.exports = mongoose.model("Movie", MovieSchema);
