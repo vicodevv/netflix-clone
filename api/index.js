@@ -16,4 +16,4 @@ app.use("/api/user", userRoute)
 
 app.listen(8080, ()=>{
     console.log("Backend server is running");
-})
+}) 
