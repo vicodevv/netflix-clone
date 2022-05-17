@@ -1,5 +1,6 @@
 import { ArrowDropDown, Notifications, Search } from "@material-ui/icons"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import "./navbar.scss"
 
 const Navbar = () => {
@@ -14,9 +15,15 @@ const Navbar = () => {
             <div className="container">
                 <div className="left">
                     <img src="http://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png" alt="" />
+                    <Link to="/" className="link">
                     <span>Home</span>
+                    </Link>
+                    <Link to= "/series" className="link">
                     <span>TV Shows</span>
+                    </Link>
+                    <Link to = "/movies" className="link">
                     <span>Movies</span>
+                    </Link>
                     <span>New & Popular</span>
                     <span>My List</span>
                 </div>
