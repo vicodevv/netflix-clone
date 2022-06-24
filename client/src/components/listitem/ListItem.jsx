@@ -1,19 +1,36 @@
 import { PlayArrow, ThumbDownAltOutlined, ThumbUpAltOutlined, Add } from "@material-ui/icons"
-import { useState } from "react"
+import axios from "axios"
+import { useEffect, useState } from "react"
 import "./listitem.scss"
 
-export default function ListItem({index}) {
+export default function ListItem({index, item}) {
     const[isHovered, setIsHovered] = useState(false)
-    const trailer = "https://youtu.be/SL9aJcqrtnw";
+    const[movie, setMovie] = useState(false)
+
+    useEffect(()=>{
+        const getMovie = async ()=>{
+            try {
+                const res = await axios.get("/movies/find/" + item, {
+                    headers: {
+                        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjQ4NTEzYTZmM2RhYmFhMmIzZmYyOSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1NjA2MzE4MywiZXhwIjoxNjU2MTQ5NTgzfQ.SvIMAiA8A7nauYQV3_NHv4RlbgSI3yBchzWYlfgic1I"
+                    }
+                }) 
+
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    })
+    
     return (
         <div className="listItem" 
         onMouseEnter={() => setIsHovered(true)} 
         onMouseLeave={() => setIsHovered(false)} 
         style={{left:isHovered && index * 225 -50 + index * 2.5}}>
-           <img src="https://occ-0-4616-2706.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABe4MOeHcKDegnaMHGCqTNKvf2NO1sJviVS4NnNkIYoiNV8ERxGvYeH7jM6wjzOL7q0mNbIxyeo7w6NqsSsK-2p9UbY0iaKO7uEAMlCAzYyTCArnGsO7yXW7Gn-8YKG30KjqtUZR38aiob2-ngg4tVK_Oh0Q.webp?r=5dd" alt="" />
+           <img src={item.image}></img>
            {isHovered && (
            <>
-           <video src={trailer} autoPlay={true} loop />
+           <video src={item.trailer} autoPlay={true} loop />
         <div className="itemInfo">
             <div className="icons">
                 <PlayArrow className="icon"/>
@@ -22,13 +39,14 @@ export default function ListItem({index}) {
                 <ThumbDownAltOutlined className="icon"/>
             </div>
             <div className="itemInfoTop">
-                <span>2h 12m</span>
-                <span className="limit">18+</span>
+                <span>{item.duration}</span>
+                <span className="limit">+{item.limit}</span>
+                <span>{item.year}</span>
             </div>
             <div className="desc">
-            Framed and condemned to a penal colony in French Guiana, a safecracker bonds with a counterfeiter and fellow prisoner in a dangerous quest for freedom.
+            {item.description}
             </div>
-            <div className="genre">Action</div>
+            <div className="genre">{item.genre}</div>
         </div> </>
         )}
            

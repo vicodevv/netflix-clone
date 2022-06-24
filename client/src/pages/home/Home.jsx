@@ -14,12 +14,15 @@ const Home = ({type}) => {
     useEffect(()=>{
         const getRandomLists = async()=>{
             try {
-                const res = await axios.get(`lists${type ? "?type=" + type: ""}${genre ? "&genre=" + genre : ""}`,{
-                    headers:{
-                        token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjQ4NTEzYTZmM2RhYmFhMmIzZmYyOSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1MjgyMzA1MywiZXhwIjoxNjUyOTA5NDUzfQ.jfd9MISIIzi5xG2vzLqpd275EhGJbMSbjdBov0VUekg"
+                const res = await axios.get(
+                    `list${type ? "?type=" + type: ""}${genre ? "&genre=" + genre : ""}`,{
+                        headers: {
+                            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjQ4NTEzYTZmM2RhYmFhMmIzZmYyOSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1NjA2MzE4MywiZXhwIjoxNjU2MTQ5NTgzfQ.SvIMAiA8A7nauYQV3_NHv4RlbgSI3yBchzWYlfgic1I"
+                        }
                     }
-                }
+                
                 );
+                setLists(res.data)
             } catch (err) { 
                 console.log(err)
             };
@@ -31,12 +34,11 @@ const Home = ({type}) => {
         <div className="home">
             <Navbar/>
             <Featured type={type}/>
-            <List/>
-            <List/>
-            <List/>
-            <List/>
+            {lists.map((list) => (
+                <List list ={list} />
+            ))}
         </div>
-    )
-}
+    );
+};
 
 export default Home
