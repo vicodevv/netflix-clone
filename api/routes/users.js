@@ -66,7 +66,7 @@ router.get("/stats", async(req, res)=>{
     const today = new Date();
     const lastYear = today.setFullYear(today.setFullYear() - 1);
 
-    const months = [
+    const MONTHS = [
         "January",
         "February",
         "March",

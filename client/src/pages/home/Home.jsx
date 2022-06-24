@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 
 const Home = ({type}) => {
     const [lists, setLists] = useState([]);
-    const [genre, setGenre] = useState(null);
+    const [genre] = useState(null);
 
     useEffect(()=>{
         const getRandomLists = async()=>{

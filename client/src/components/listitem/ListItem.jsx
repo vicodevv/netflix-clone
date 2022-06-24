@@ -1,11 +1,13 @@
 import { PlayArrow, ThumbDownAltOutlined, ThumbUpAltOutlined, Add } from "@material-ui/icons"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import "./listitem.scss"
 
 export default function ListItem({index, item}) {
     const[isHovered, setIsHovered] = useState(false)
     const[movie, setMovie] = useState({});
+    console.log(movie)
 
     useEffect(()=>{
         const getMovie = async ()=>{
@@ -24,11 +26,12 @@ export default function ListItem({index, item}) {
     }, [item]);
     
     return (
+        <Link to = {{pathname: "/watch", movie:movie}}>
         <div className="listItem" 
         onMouseEnter={() => setIsHovered(true)} 
         onMouseLeave={() => setIsHovered(false)} 
         style={{left:isHovered && index * 225 -50 + index * 2.5}}>
-           <img src={movie.image}></img>
+           <img src={movie.image} alt= ""></img>
            {isHovered && (
            <>
            <video src={movie.trailer} autoPlay={true} loop />
@@ -52,5 +55,6 @@ export default function ListItem({index, item}) {
         )}
            
         </div>
+        </Link>
     );
 }
