@@ -5,7 +5,7 @@ import "./listitem.scss"
 
 export default function ListItem({index, item}) {
     const[isHovered, setIsHovered] = useState(false)
-    const[movie, setMovie] = useState(false)
+    const[movie, setMovie] = useState({});
 
     useEffect(()=>{
         const getMovie = async ()=>{
@@ -14,23 +14,24 @@ export default function ListItem({index, item}) {
                     headers: {
                         token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjQ4NTEzYTZmM2RhYmFhMmIzZmYyOSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1NjA2MzE4MywiZXhwIjoxNjU2MTQ5NTgzfQ.SvIMAiA8A7nauYQV3_NHv4RlbgSI3yBchzWYlfgic1I"
                     }
-                }) 
-
+                });
+                setMovie(res.data);
             } catch (err) {
                 console.log(err)
             }
-        }
-    })
+        };
+        getMovie();
+    }, [item]);
     
     return (
         <div className="listItem" 
         onMouseEnter={() => setIsHovered(true)} 
         onMouseLeave={() => setIsHovered(false)} 
         style={{left:isHovered && index * 225 -50 + index * 2.5}}>
-           <img src={item.image}></img>
+           <img src={movie.image}></img>
            {isHovered && (
            <>
-           <video src={item.trailer} autoPlay={true} loop />
+           <video src={movie.trailer} autoPlay={true} loop />
         <div className="itemInfo">
             <div className="icons">
                 <PlayArrow className="icon"/>
@@ -39,14 +40,14 @@ export default function ListItem({index, item}) {
                 <ThumbDownAltOutlined className="icon"/>
             </div>
             <div className="itemInfoTop">
-                <span>{item.duration}</span>
-                <span className="limit">+{item.limit}</span>
-                <span>{item.year}</span>
+                <span>{movie.duration}</span>
+                <span className="limit">+{movie.limit}</span>
+                <span>{movie.year}</span>
             </div>
             <div className="desc">
-            {item.description}
+            {movie.description}
             </div>
-            <div className="genre">{item.genre}</div>
+            <div className="genre">{movie.genre}</div>
         </div> </>
         )}
            
